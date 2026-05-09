@@ -267,49 +267,41 @@ class OverlayView @JvmOverloads constructor(
 
         val rOuter = fk.rightEyeOuter ?: return
         val lOuter = fk.leftEyeOuter  ?: return
-        val rTop   = fk.rightEyeTop   ?: return
-        val rBot   = fk.rightEyeBottom ?: return
-        val lTop   = fk.leftEyeTop    ?: return
-        val lBot   = fk.leftEyeBottom  ?: return
 
         val roX = mapX(rOuter.x()); val roY = mapY(rOuter.y())
         val loX = mapX(lOuter.x()); val loY = mapY(lOuter.y())
 
-        // Anchor: midpoint between iris centres (fallback: outer-corner midpoint)
+        // Horizontal anchor: midpoint between iris centres (fallback: outer-corner midpoint)
         val rIris = fk.rightIris
         val lIris = fk.leftIris
-        val anchorX: Float
-        val anchorY: Float
-        if (rIris != null && lIris != null) {
-            anchorX = (mapX(rIris.x()) + mapX(lIris.x())) / 2f
-            anchorY = (mapY(rIris.y()) + mapY(lIris.y())) / 2f
-        } else {
-            anchorX = (roX + loX) / 2f
-            anchorY = (roY + loY) / 2f
-        }
+        val anchorX = if (rIris != null && lIris != null)
+            (mapX(rIris.x()) + mapX(lIris.x())) / 2f
+        else
+            (roX + loX) / 2f
 
-        // Width: outer-corner-to-outer-corner × 2.2
-        // Outer corners span ~40% of face width; real frames reach ~88% → factor ≈ 2.2
+        // Frame dimensions
         val outerDist = kotlin.math.sqrt(
             ((loX - roX) * (loX - roX) + (loY - roY) * (loY - roY)).toDouble()
         ).toFloat().coerceAtLeast(1f)
-        val targetWidth = outerDist * 3.1f
-
-        // Height locked to the garment's own aspect ratio — no squashing
+        val targetWidth  = outerDist * 3.1f
         val targetHeight = targetWidth * (bitmap.height.toFloat() / bitmap.width)
 
-        // Tilt: angle from LEFT outer corner → RIGHT outer corner (loX < roX after mirroring).
-        // Going left→right gives ~0° for a level face; right→left would give ~180° (inverted).
+        // Tilt: left outer → right outer gives ~0° for a level face
         val angleDeg = Math.toDegrees(
             atan2((roY - loY).toDouble(), (roX - loX).toDouble())
         ).toFloat()
 
-        val scaleX = targetWidth / bitmap.width
+        val scaleX = targetWidth  / bitmap.width
         val scaleY = targetHeight / bitmap.height
 
-        // Fine-tune placement: slight rightward nudge + modest upward lift
+        // Y anchor: nose bridge landmark 168 is where nose pads rest.
+        // Bridge sits ~30% from the top of the frame, so centre = bridge + 20% of height.
+        val bridge = fk.landmarks.getOrNull(168)
         val xAnchor = anchorX + targetWidth * 0.01f
-        val yAnchor = anchorY - targetHeight * 0.05f
+        val yAnchor = if (bridge != null)
+            mapY(bridge.y()) + targetHeight * 0.20f
+        else
+            (mapY(rOuter.y()) + mapY(lOuter.y())) / 2f - targetHeight * 0.05f
 
         val matrix = Matrix().apply {
             postScale(scaleX, scaleY)
