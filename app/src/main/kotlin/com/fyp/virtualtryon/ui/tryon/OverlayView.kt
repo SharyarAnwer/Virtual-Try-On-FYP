@@ -307,15 +307,15 @@ class OverlayView @JvmOverloads constructor(
         val scaleX = targetWidth / bitmap.width
         val scaleY = targetHeight / bitmap.height
 
-        // Shift the anchor UP by 15% of frame height so lenses sit over the eye sockets,
-        // not just centred on the iris line.
-        val yAnchor = anchorY - targetHeight * 0.15f
+        // Fine-tune placement: slight rightward nudge + modest upward lift
+        val xAnchor = anchorX + targetWidth * 0.01f
+        val yAnchor = anchorY - targetHeight * 0.05f
 
         val matrix = Matrix().apply {
             postScale(scaleX, scaleY)
             postTranslate(-(bitmap.width * scaleX) / 2f, -(bitmap.height * scaleY) / 2f)
             postRotate(angleDeg)
-            postTranslate(anchorX, yAnchor)
+            postTranslate(xAnchor, yAnchor)
         }
         canvas.drawBitmap(bitmap, matrix, garmentPaint)
     }

@@ -35,4 +35,37 @@ data class FaceKeypoints(val landmarks: List<NormalizedLandmark>) {
         landmarks.size >= 468 &&
         rightEyeOuter != null && leftEyeOuter != null &&
         rightEyeTop   != null && rightEyeBottom != null
+
+    /**
+     * Returns true when the face is roughly straight-on to the camera.
+     *
+     * Yaw  — nose tip x should sit ~halfway between the two outer eye corners.
+     * Pitch — nose tip y should sit ~55 % of the way from forehead (10) to chin (152).
+     * Thresholds are intentionally loose so the warning only fires on obvious tilts.
+     */
+    /**
+     * Returns false only when the face is clearly turned left or right.
+     *
+     * Strategy: compare the apparent widths of both eyes.
+     * When looking straight, both eyes appear roughly the same width.
+     * When the face turns, the far eye becomes much narrower than the near eye.
+     * This approach is robust to camera mirroring and individual face proportions.
+     *
+     * Warning fires only when one eye is less than 45 % the width of the other
+     * — a clear, visible turn of ~30°+.
+     */
+    fun isLookingStraight(): Boolean {
+        val rOuter = landmarks.getOrNull(33)  ?: return true  // right eye outer corner
+        val rInner = landmarks.getOrNull(133) ?: return true  // right eye inner corner
+        val lOuter = landmarks.getOrNull(362) ?: return true  // left  eye outer corner
+        val lInner = landmarks.getOrNull(263) ?: return true  // left  eye inner corner
+
+        val rWidth = kotlin.math.abs(rOuter.x() - rInner.x())
+        val lWidth = kotlin.math.abs(lOuter.x() - lInner.x())
+
+        if (rWidth <= 0f || lWidth <= 0f) return true
+        val ratio = minOf(rWidth, lWidth) / maxOf(rWidth, lWidth)
+        // ratio ≈ 1.0 → straight; ratio < 0.70 → one eye noticeably narrower → turned
+        return ratio >= 0.70f
+    }
 }

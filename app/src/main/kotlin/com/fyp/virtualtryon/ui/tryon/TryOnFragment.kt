@@ -136,6 +136,8 @@ class TryOnFragment : Fragment() {
 
         viewModel.currentFaceKeypoints.observe(viewLifecycleOwner) { fk ->
             binding.overlayView.updateFaceKeypoints(fk)
+            val straight = fk?.isLookingStraight() ?: true
+            binding.tvHeadPoseWarning.visibility = if (straight) View.GONE else View.VISIBLE
         }
     }
 
