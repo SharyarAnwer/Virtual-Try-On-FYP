@@ -3,7 +3,7 @@ package com.fyp.virtualtryon.data.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-enum class GarmentType { SHIRT, PANTS, GLASSES, SHOES }
+enum class GarmentType { SHIRT, PANTS, GLASSES, GLASSES_V2, SHOES }
 enum class GarmentGender { MALE, FEMALE, UNISEX }
 enum class BodyType { SLIM, REGULAR, LARGE }
 

@@ -10,7 +10,7 @@ import com.fyp.virtualtryon.data.model.UserProfile
 
 @Database(
     entities = [Garment::class, UserProfile::class],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

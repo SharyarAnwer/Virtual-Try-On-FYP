@@ -20,6 +20,9 @@ interface GarmentDao {
     @Query("SELECT * FROM garments WHERE id = :id")
     suspend fun getGarmentById(id: Long): Garment?
 
+    @Query("SELECT COUNT(*) FROM garments")
+    suspend fun count(): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGarments(vararg garments: Garment)
 

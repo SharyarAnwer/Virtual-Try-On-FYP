@@ -142,5 +142,65 @@
     "sizeLabel": "S",
     "suitableBodyTypes": "SLIM,REGULAR,LARGE",
     "suitableGenders": "MALE,FEMALE,UNISEX"
+  },
+  {
+    "name": "Black Sunglasses",
+    "type": "GLASSES",
+    "gender": "UNISEX",
+    "color": "black",
+    "imageAssetPath": "garments/glasses/glasses_001.png",
+    "widthCm": 14.0,
+    "heightCm": 5.0,
+    "sizeLabel": "ONE SIZE",
+    "suitableBodyTypes": "SLIM,REGULAR,LARGE",
+    "suitableGenders": "MALE,FEMALE,UNISEX"
+  },
+  {
+    "name": "Round Metal Frames",
+    "type": "GLASSES",
+    "gender": "UNISEX",
+    "color": "silver",
+    "imageAssetPath": "garments/glasses/glasses_002.png",
+    "widthCm": 13.0,
+    "heightCm": 5.0,
+    "sizeLabel": "ONE SIZE",
+    "suitableBodyTypes": "SLIM,REGULAR,LARGE",
+    "suitableGenders": "MALE,FEMALE,UNISEX"
+  },
+  {
+    "name": "Aviator Frames",
+    "type": "GLASSES",
+    "gender": "UNISEX",
+    "color": "black",
+    "imageAssetPath": "garments/glasses/glasses_003.png",
+    "widthCm": 14.0,
+    "heightCm": 5.5,
+    "sizeLabel": "ONE SIZE",
+    "suitableBodyTypes": "SLIM,REGULAR,LARGE",
+    "suitableGenders": "MALE,FEMALE,UNISEX"
+  },
+  {
+    "name": "Black Wayfarer",
+    "type": "GLASSES",
+    "gender": "UNISEX",
+    "color": "black",
+    "imageAssetPath": "garments/glasses/glasses_004.png",
+    "widthCm": 14.0,
+    "heightCm": 5.0,
+    "sizeLabel": "ONE SIZE",
+    "suitableBodyTypes": "SLIM,REGULAR,LARGE",
+    "suitableGenders": "MALE,FEMALE,UNISEX"
+  },
+  {
+    "name": "Sketch Wayfarers",
+    "type": "GLASSES",
+    "gender": "UNISEX",
+    "color": "black",
+    "imageAssetPath": "garments/glasses/glasses_005.png",
+    "widthCm": 14.0,
+    "heightCm": 5.0,
+    "sizeLabel": "ONE SIZE",
+    "suitableBodyTypes": "SLIM,REGULAR,LARGE",
+    "suitableGenders": "MALE,FEMALE,UNISEX"
   }
 ]
