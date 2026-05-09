@@ -32,6 +32,8 @@ class TryOnFragment : Fragment() {
     private lateinit var poseDetector: PoseDetector
     private lateinit var garmentOverlay: GarmentOverlay
 
+    private var lensFacing = CameraSelector.LENS_FACING_FRONT
+
     private val cameraPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { granted ->
@@ -60,8 +62,19 @@ class TryOnFragment : Fragment() {
         setupCategoryChips()
         observeViewModel()
 
+        binding.btnFlipCamera.setOnClickListener { flipCamera() }
+
         if (hasCameraPermission()) startCamera()
         else cameraPermissionLauncher.launch(Manifest.permission.CAMERA)
+    }
+
+    private fun flipCamera() {
+        lensFacing = if (lensFacing == CameraSelector.LENS_FACING_FRONT)
+            CameraSelector.LENS_FACING_BACK
+        else
+            CameraSelector.LENS_FACING_FRONT
+        binding.overlayView.mirrorHorizontal = (lensFacing == CameraSelector.LENS_FACING_FRONT)
+        startCamera()
     }
 
     private fun setupCategoryChips() {
@@ -94,6 +107,10 @@ class TryOnFragment : Fragment() {
         viewModel.selectedGarment.observe(viewLifecycleOwner) { garment ->
             binding.tvSelectedGarment.text = garment?.name ?: getString(R.string.no_garment_selected)
         }
+
+        viewModel.currentKeypoints.observe(viewLifecycleOwner) { kp ->
+            binding.overlayView.updateKeypoints(kp)
+        }
     }
 
     private fun startCamera() {
@@ -104,7 +121,7 @@ class TryOnFragment : Fragment() {
                 val timestampMs = System.currentTimeMillis()
                 poseDetector.detectAsync(imageProxy, timestampMs)
             },
-            lensFacing = CameraSelector.LENS_FACING_FRONT,
+            lensFacing = lensFacing,
         )
     }
 
