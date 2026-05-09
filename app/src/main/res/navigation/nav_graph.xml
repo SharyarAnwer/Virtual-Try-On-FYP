@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.fyp.virtualtryon.ui.home.HomeFragment"
+        android:label="Home">
+        <action
+            android:id="@+id/action_home_to_tryon"
+            app:destination="@id/tryOnFragment" />
+        <action
+            android:id="@+id/action_home_to_recommendation"
+            app:destination="@id/recommendationFragment" />
+        <action
+            android:id="@+id/action_home_to_profile"
+            app:destination="@id/profileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tryOnFragment"
+        android:name="com.fyp.virtualtryon.ui.tryon.TryOnFragment"
+        android:label="Try On" />
+
+    <fragment
+        android:id="@+id/recommendationFragment"
+        android:name="com.fyp.virtualtryon.ui.recommendation.RecommendationFragment"
+        android:label="Recommendations" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.fyp.virtualtryon.ui.profile.ProfileFragment"
+        android:label="Profile" />
+
+</navigation>

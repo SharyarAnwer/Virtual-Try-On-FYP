@@ -1,0 +1,92 @@
+package com.fyp.virtualtryon.ui.tryon
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
+import com.fyp.virtualtryon.data.model.BodyMeasurements
+import com.fyp.virtualtryon.data.model.Garment
+import com.fyp.virtualtryon.data.model.GarmentType
+import com.fyp.virtualtryon.data.repository.GarmentRepository
+import com.fyp.virtualtryon.data.repository.UserProfileRepository
+import com.fyp.virtualtryon.pose.BodyKeypoints
+import com.fyp.virtualtryon.warning.FitResult
+import com.fyp.virtualtryon.warning.FitWarning
+import com.fyp.virtualtryon.warning.FitWarningEngine
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class TryOnViewModel @Inject constructor(
+    private val garmentRepository: GarmentRepository,
+    private val userProfileRepository: UserProfileRepository,
+) : ViewModel() {
+
+    val profile = userProfileRepository.getProfile().asLiveData()
+
+    private val _selectedGarment = MutableLiveData<Garment?>()
+    val selectedGarment: LiveData<Garment?> = _selectedGarment
+
+    private val _currentKeypoints = MutableLiveData<BodyKeypoints?>()
+    val currentKeypoints: LiveData<BodyKeypoints?> = _currentKeypoints
+
+    private val _fitResult = MutableLiveData<FitResult>()
+    val fitResult: LiveData<FitResult> = _fitResult
+
+    private val _activeCategory = MutableLiveData(GarmentType.SHIRT)
+    val activeCategory: LiveData<GarmentType> = _activeCategory
+
+    val shirtsFlow  = garmentRepository.getGarmentsByType(GarmentType.SHIRT).asLiveData()
+    val pantsFlow   = garmentRepository.getGarmentsByType(GarmentType.PANTS).asLiveData()
+    val glassesFlow = garmentRepository.getGarmentsByType(GarmentType.GLASSES).asLiveData()
+    val shoesFlow   = garmentRepository.getGarmentsByType(GarmentType.SHOES).asLiveData()
+
+    fun selectGarment(garment: Garment) {
+        _selectedGarment.value = garment
+        evaluateFit()
+    }
+
+    fun onKeypointsUpdated(keypoints: BodyKeypoints?) {
+        _currentKeypoints.value = keypoints
+        evaluateFit()
+    }
+
+    fun setCategory(type: GarmentType) {
+        _activeCategory.value = type
+        _selectedGarment.value = null
+    }
+
+    private fun evaluateFit() {
+        val garment  = _selectedGarment.value ?: return
+        val profile  = profile.value ?: return
+        val kp       = _currentKeypoints.value ?: return
+        if (!kp.isValid()) return
+
+        val frameW = 1f  // normalised; GarmentWarper uses this for pixel space
+        val frameH = 1f
+
+        // Build approximate pixel measurements from normalised coords
+        // We treat the full image as 1000x1000 for ratio computation
+        val scale = 1000f
+        val ls = kp.leftShoulder!!; val rs = kp.rightShoulder!!
+        val lh = kp.leftHip!!;     val rh = kp.rightHip!!
+        val la = kp.leftAnkle;     val ra = kp.rightAnkle
+        val le = kp.leftEye;       val re = kp.rightEye
+
+        val measurements = BodyMeasurements(
+            shoulderWidthPx = (rs.x() - ls.x()) * scale,
+            hipWidthPx      = ((rh.x() - lh.x()).coerceAtLeast(0f)) * scale,
+            torsoHeightPx   = ((lh.y() + rh.y()) / 2f - (ls.y() + rs.y()) / 2f) * scale,
+            inseamPx        = if (la != null && ra != null)
+                ((la.y() + ra.y()) / 2f - (lh.y() + rh.y()) / 2f) * scale else 0f,
+            faceHeightPx    = if (le != null && re != null)
+                ((ls.y() + rs.y()) / 2f - (le.y() + re.y()) / 2f) * scale else 0f,
+            imageWidthPx    = scale.toInt(),
+            imageHeightPx   = scale.toInt(),
+        )
+
+        _fitResult.value = FitWarningEngine.evaluate(measurements, garment, profile)
+    }
+}

@@ -1,0 +1,75 @@
+==============================================================
+  GARMENT DATASET SETUP — Virtual Try-On FYP
+==============================================================
+
+OPTION A — VITON-HD  (recommended — shirts only, ~3 GB)
+--------------------------------------------------------------
+1. Go to:  https://github.com/shadow2496/VITON-HD
+2. Open the README and click the Google Drive download link
+   (look for "VITON-HD.zip" or "test.zip" under the Data section)
+3. Extract so you have:
+     scripts/
+       viton_hd/
+         test/
+           cloth/          ← ~2032 white-background JPGs
+           cloth-mask/     ← ~2032 binary PNG masks
+
+4. Install Python dependencies:
+     pip install Pillow numpy
+
+5. Run the script (from this scripts/ folder):
+     python prepare_dataset.py --dataset viton_hd --input ./viton_hd --output ../app/src/main/assets
+
+6. Rebuild the Android project.  Done!
+
+
+OPTION B — DressCode  (shirts + pants, ~8 GB — needs form approval)
+--------------------------------------------------------------
+1. Go to:  https://github.com/aimagelab/dress-code
+2. Fill in the dataset request form linked in the README
+3. Once approved, download and extract so you have:
+     scripts/
+       dress_code/
+         upper_body/
+           images/
+           masks/
+         lower_body/
+           images/
+           masks/
+
+4. Run:
+     python prepare_dataset.py --dataset dress_code --input ./dress_code --output ../app/src/main/assets
+
+
+OPTION C — Both datasets together
+--------------------------------------------------------------
+     python prepare_dataset.py --dataset both \
+       --viton ./viton_hd \
+       --dresscode ./dress_code \
+       --output ../app/src/main/assets
+
+
+WHAT THE SCRIPT DOES
+--------------------------------------------------------------
+For each garment image it:
+  1. Applies the binary mask to remove the white background
+  2. Resizes to 512×682 px (3:4 ratio)
+  3. Saves as a transparent-background PNG into
+       app/src/main/assets/garments/shirts/
+       app/src/main/assets/garments/pants/
+  4. Writes a garments_catalog.json to
+       app/src/main/assets/
+
+The Android app reads garments_catalog.json on first launch
+(via DatabaseSeeder) and inserts all garments into Room.
+
+
+MEDIAPIPE MODEL FILE
+--------------------------------------------------------------
+Also needed before building:
+  1. Go to: https://ai.google.dev/edge/mediapipe/solutions/vision/pose_landmarker
+  2. Download "pose_landmarker_lite.task"  (small, ~5 MB)
+  3. Place it at:
+       app/src/main/assets/pose_landmarker_lite.task
+
+==============================================================
