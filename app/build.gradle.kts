@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.fyp.virtualtryon"
-    compileSdk = 36
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.fyp.virtualtryon"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -86,11 +86,6 @@ dependencies {
 
     // MediaPipe Tasks Vision (pose landmarker)
     implementation(libs.mediapipe.tasks.vision)
-
-    // TensorFlow Lite (recommendation model)
-    implementation(libs.tflite)
-    implementation(libs.tflite.support)
-    implementation(libs.tflite.gpu)
 
     // ARCore
     implementation(libs.arcore)

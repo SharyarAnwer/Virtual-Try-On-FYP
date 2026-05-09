@@ -9,8 +9,19 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
+**/build/
 /captures
 .externalNativeBuild
 .cxx
 local.properties
 .claude/
+
+# IDE-local state (don't commit, but DO commit .idea/runConfigurations/)
+.idea/deviceManager.xml
+.idea/gradle.xml
+.idea/misc.xml
+.idea/studiobot.xml
+.idea/vcs.xml
+.idea/compiler.xml
+.idea/jarRepositories.xml
+.idea/inspectionProfiles/
