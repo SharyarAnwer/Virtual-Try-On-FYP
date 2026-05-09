@@ -45,12 +45,13 @@ class TryOnViewModel @Inject constructor(
 
     fun selectGarment(garment: Garment) {
         _selectedGarment.value = garment
-        evaluateFit()
+        evaluateFit(_currentKeypoints.value)
     }
 
     fun onKeypointsUpdated(keypoints: BodyKeypoints?) {
-        _currentKeypoints.value = keypoints
-        evaluateFit()
+        // Called from MediaPipe's background thread — must use postValue()
+        _currentKeypoints.postValue(keypoints)
+        evaluateFit(keypoints)
     }
 
     fun setCategory(type: GarmentType) {
@@ -58,10 +59,10 @@ class TryOnViewModel @Inject constructor(
         _selectedGarment.value = null
     }
 
-    private fun evaluateFit() {
+    private fun evaluateFit(kp: BodyKeypoints?) {
         val garment  = _selectedGarment.value ?: return
         val profile  = profile.value ?: return
-        val kp       = _currentKeypoints.value ?: return
+        kp ?: return
         if (!kp.isValid()) return
 
         val frameW = 1f  // normalised; GarmentWarper uses this for pixel space
@@ -87,6 +88,6 @@ class TryOnViewModel @Inject constructor(
             imageHeightPx   = scale.toInt(),
         )
 
-        _fitResult.value = FitWarningEngine.evaluate(measurements, garment, profile)
+        _fitResult.postValue(FitWarningEngine.evaluate(measurements, garment, profile))
     }
 }
