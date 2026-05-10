@@ -98,6 +98,10 @@ class TryOnFragment : Fragment() {
     }
 
     private fun setupCategoryChips() {
+        binding.chipShirts.setOnClickListener {
+            viewModel.setCategory(GarmentType.SHIRT)
+        }
+
         binding.chipGlassesV2.setOnClickListener {
             viewModel.setCategory(GarmentType.GLASSES_V2)
         }

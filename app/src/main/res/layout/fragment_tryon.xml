@@ -94,7 +94,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!--
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_shirts"
             android:layout_width="wrap_content"
@@ -102,6 +101,7 @@
             android:text="@string/category_shirts"
             style="@style/Widget.Material3.Chip.Filter" />
 
+        <!--
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_pants"
             android:layout_width="wrap_content"
