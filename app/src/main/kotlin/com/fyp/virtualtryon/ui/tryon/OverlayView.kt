@@ -33,6 +33,9 @@ class OverlayView @JvmOverloads constructor(
     /** Set true to mirror x-coordinate (front camera). */
     var mirrorHorizontal: Boolean = true
 
+    // Shirt try-on overlay is not yet ready — keep false until feature is complete
+    private val shirtOverlayEnabled = false
+
     /** Set true to draw debug skeleton; false to hide for production. */
     var showSkeleton: Boolean = true
 
@@ -110,6 +113,7 @@ class OverlayView @JvmOverloads constructor(
         canvas: Canvas, kp: BodyKeypoints, bitmap: Bitmap,
         mapX: (Float) -> Float, mapY: (Float) -> Float,
     ) {
+        if (!shirtOverlayEnabled) return
         val ls = kp.leftShoulder ?: return
         val rs = kp.rightShoulder ?: return
         val lh = kp.leftHip ?: return

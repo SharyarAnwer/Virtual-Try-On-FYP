@@ -100,10 +100,12 @@ class TryOnFragment : Fragment() {
     private fun setupCategoryChips() {
         binding.chipShirts.setOnClickListener {
             viewModel.setCategory(GarmentType.SHIRT)
+            binding.rvGarmentThumbs.visibility = View.GONE
         }
 
         binding.chipGlassesV2.setOnClickListener {
             viewModel.setCategory(GarmentType.GLASSES_V2)
+            binding.rvGarmentThumbs.visibility = View.VISIBLE
         }
 
         binding.chipShoes.setOnClickListener {
