@@ -25,10 +25,10 @@ class GarmentOverlay(private val context: Context) {
         val garmentBitmap = loadGarmentBitmap(garment) ?: return frame
 
         return when (garment.type) {
-            GarmentType.SHIRT   -> GarmentWarper.overlayUpperBody(frame, garmentBitmap, keypoints)
-            GarmentType.PANTS   -> GarmentWarper.overlayLowerBody(frame, garmentBitmap, keypoints)
-            GarmentType.GLASSES -> GarmentWarper.overlayUpperBody(frame, garmentBitmap, keypoints)
-            GarmentType.SHOES   -> GarmentWarper.overlayLowerBody(frame, garmentBitmap, keypoints)
+            GarmentType.SHIRT                    -> GarmentWarper.overlayUpperBody(frame, garmentBitmap, keypoints)
+            GarmentType.PANTS                    -> GarmentWarper.overlayLowerBody(frame, garmentBitmap, keypoints)
+            GarmentType.GLASSES, GarmentType.GLASSES_V2 -> GarmentWarper.overlayUpperBody(frame, garmentBitmap, keypoints)
+            GarmentType.SHOES                    -> GarmentWarper.overlayLowerBody(frame, garmentBitmap, keypoints)
         }
     }
 

@@ -15,6 +15,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Overlay drawn on top of the camera preview (skeleton + garment) -->
+    <com.fyp.virtualtryon.ui.tryon.OverlayView
+        android:id="@+id/overlay_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/camera_preview"
+        app:layout_constraintBottom_toBottomOf="@id/camera_preview"
+        app:layout_constraintStart_toStartOf="@id/camera_preview"
+        app:layout_constraintEnd_toEndOf="@id/camera_preview" />
+
+    <!-- Camera flip button -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_flip_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="Flip camera"
+        app:srcCompat="@drawable/ic_flip_camera"
+        app:backgroundTint="#99000000"
+        app:tint="@android:color/white"
+        app:fabSize="mini"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Head-pose warning banner (shown when user is not looking straight) -->
+    <TextView
+        android:id="@+id/tv_head_pose_warning"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center"
+        android:text="Keep a straight face"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:background="#CC000000"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- Fit warning banner (initially hidden) -->
     <TextView
         android:id="@+id/tv_fit_warning"
@@ -29,6 +70,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- Horizontal strip of garment thumbnails for the active category -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_garment_thumbs"
+        android:layout_width="0dp"
+        android:layout_height="110dp"
+        android:background="#66000000"
+        android:clipToPadding="false"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="4dp"
+        app:layout_constraintBottom_toTopOf="@id/chip_group_category"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <!-- Category chip group -->
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group_category"
@@ -40,6 +94,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <!--
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_shirts"
             android:layout_width="wrap_content"
@@ -60,13 +115,23 @@
             android:layout_height="wrap_content"
             android:text="@string/category_glasses"
             style="@style/Widget.Material3.Chip.Filter" />
+        -->
 
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_glasses_v2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Glasses 2"
+            style="@style/Widget.Material3.Chip.Filter" />
+
+        <!--
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_shoes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/category_shoes"
             style="@style/Widget.Material3.Chip.Filter" />
+        -->
 
     </com.google.android.material.chip.ChipGroup>
 

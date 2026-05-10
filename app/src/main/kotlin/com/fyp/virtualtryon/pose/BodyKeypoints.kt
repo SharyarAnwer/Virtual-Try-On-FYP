@@ -9,9 +9,13 @@ import com.google.mediapipe.tasks.components.containers.NormalizedLandmark
 data class BodyKeypoints(val landmarks: List<NormalizedLandmark>) {
 
     // MediaPipe BlazePose landmark indices
-    val nose: NormalizedLandmark?          get() = landmarks.getOrNull(0)
+    val nose: NormalizedLandmark?           get() = landmarks.getOrNull(0)
+    val leftEyeInner: NormalizedLandmark?  get() = landmarks.getOrNull(1)
     val leftEye: NormalizedLandmark?       get() = landmarks.getOrNull(2)
+    val leftEyeOuter: NormalizedLandmark?  get() = landmarks.getOrNull(3)
+    val rightEyeInner: NormalizedLandmark? get() = landmarks.getOrNull(4)
     val rightEye: NormalizedLandmark?      get() = landmarks.getOrNull(5)
+    val rightEyeOuter: NormalizedLandmark? get() = landmarks.getOrNull(6)
     val leftEar: NormalizedLandmark?       get() = landmarks.getOrNull(7)
     val rightEar: NormalizedLandmark?      get() = landmarks.getOrNull(8)
     val leftShoulder: NormalizedLandmark?  get() = landmarks.getOrNull(11)

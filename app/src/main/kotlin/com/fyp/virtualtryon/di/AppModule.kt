@@ -29,11 +29,13 @@ object AppModule {
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         var db: AppDatabase? = null
         val callback = object : RoomDatabase.Callback() {
-            override fun onCreate(sqLiteDb: SupportSQLiteDatabase) {
-                // Seed garments from assets/garments_catalog.json on first install
+            override fun onOpen(sqLiteDb: SupportSQLiteDatabase) {
                 CoroutineScope(Dispatchers.IO).launch {
-                    val garments = DatabaseSeeder.loadGarments(context)
-                    db?.garmentDao()?.insertGarments(*garments.toTypedArray())
+                    val dao = db?.garmentDao() ?: return@launch
+                    if (dao.count() == 0) {
+                        val garments = DatabaseSeeder.loadGarments(context)
+                        dao.insertGarments(*garments.toTypedArray())
+                    }
                 }
             }
         }

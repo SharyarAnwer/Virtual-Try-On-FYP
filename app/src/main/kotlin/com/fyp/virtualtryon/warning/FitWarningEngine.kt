@@ -36,7 +36,7 @@ object FitWarningEngine {
         return when (garment.type) {
             GarmentType.SHIRT   -> evaluateShirt(measurements, garment, profile)
             GarmentType.PANTS   -> evaluatePants(measurements, garment, profile)
-            GarmentType.GLASSES -> FitResult(FitWarning.GOOD_FIT, "Accessories always fit!")
+            GarmentType.GLASSES, GarmentType.GLASSES_V2 -> FitResult(FitWarning.GOOD_FIT, "Accessories always fit!")
             GarmentType.SHOES   -> FitResult(FitWarning.GOOD_FIT, "Select your shoe size for best results.")
         }
     }

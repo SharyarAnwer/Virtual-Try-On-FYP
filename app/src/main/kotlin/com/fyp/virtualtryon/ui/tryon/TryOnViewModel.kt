@@ -1,6 +1,7 @@
 package com.fyp.virtualtryon.ui.tryon
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -11,6 +12,7 @@ import com.fyp.virtualtryon.data.model.GarmentType
 import com.fyp.virtualtryon.data.repository.GarmentRepository
 import com.fyp.virtualtryon.data.repository.UserProfileRepository
 import com.fyp.virtualtryon.pose.BodyKeypoints
+import com.fyp.virtualtryon.pose.FaceKeypoints
 import com.fyp.virtualtryon.warning.FitResult
 import com.fyp.virtualtryon.warning.FitWarning
 import com.fyp.virtualtryon.warning.FitWarningEngine
@@ -32,10 +34,13 @@ class TryOnViewModel @Inject constructor(
     private val _currentKeypoints = MutableLiveData<BodyKeypoints?>()
     val currentKeypoints: LiveData<BodyKeypoints?> = _currentKeypoints
 
+    private val _currentFaceKeypoints = MutableLiveData<FaceKeypoints?>()
+    val currentFaceKeypoints: LiveData<FaceKeypoints?> = _currentFaceKeypoints
+
     private val _fitResult = MutableLiveData<FitResult>()
     val fitResult: LiveData<FitResult> = _fitResult
 
-    private val _activeCategory = MutableLiveData(GarmentType.SHIRT)
+    private val _activeCategory = MutableLiveData(GarmentType.GLASSES_V2)
     val activeCategory: LiveData<GarmentType> = _activeCategory
 
     val shirtsFlow  = garmentRepository.getGarmentsByType(GarmentType.SHIRT).asLiveData()
@@ -43,14 +48,36 @@ class TryOnViewModel @Inject constructor(
     val glassesFlow = garmentRepository.getGarmentsByType(GarmentType.GLASSES).asLiveData()
     val shoesFlow   = garmentRepository.getGarmentsByType(GarmentType.SHOES).asLiveData()
 
+    /** Garments to display in the thumbnail strip — switches with active category. */
+    val displayedGarments: LiveData<List<Garment>> = MediatorLiveData<List<Garment>>().apply {
+        fun refresh() {
+            value = when (_activeCategory.value) {
+                GarmentType.PANTS                       -> pantsFlow.value ?: emptyList()
+                GarmentType.GLASSES, GarmentType.GLASSES_V2 -> glassesFlow.value ?: emptyList()
+                GarmentType.SHOES                       -> shoesFlow.value ?: emptyList()
+                else                                    -> shirtsFlow.value ?: emptyList()
+            }
+        }
+        addSource(_activeCategory) { refresh() }
+        addSource(shirtsFlow)      { refresh() }
+        addSource(pantsFlow)       { refresh() }
+        addSource(glassesFlow)     { refresh() }
+        addSource(shoesFlow)       { refresh() }
+    }
+
     fun selectGarment(garment: Garment) {
         _selectedGarment.value = garment
-        evaluateFit()
+        evaluateFit(_currentKeypoints.value)
     }
 
     fun onKeypointsUpdated(keypoints: BodyKeypoints?) {
-        _currentKeypoints.value = keypoints
-        evaluateFit()
+        // Called from MediaPipe's background thread — must use postValue()
+        _currentKeypoints.postValue(keypoints)
+        evaluateFit(keypoints)
+    }
+
+    fun onFaceKeypointsUpdated(keypoints: FaceKeypoints?) {
+        _currentFaceKeypoints.postValue(keypoints)
     }
 
     fun setCategory(type: GarmentType) {
@@ -58,10 +85,10 @@ class TryOnViewModel @Inject constructor(
         _selectedGarment.value = null
     }
 
-    private fun evaluateFit() {
+    private fun evaluateFit(kp: BodyKeypoints?) {
         val garment  = _selectedGarment.value ?: return
         val profile  = profile.value ?: return
-        val kp       = _currentKeypoints.value ?: return
+        kp ?: return
         if (!kp.isValid()) return
 
         val frameW = 1f  // normalised; GarmentWarper uses this for pixel space
@@ -87,6 +114,6 @@ class TryOnViewModel @Inject constructor(
             imageHeightPx   = scale.toInt(),
         )
 
-        _fitResult.value = FitWarningEngine.evaluate(measurements, garment, profile)
+        _fitResult.postValue(FitWarningEngine.evaluate(measurements, garment, profile))
     }
 }
