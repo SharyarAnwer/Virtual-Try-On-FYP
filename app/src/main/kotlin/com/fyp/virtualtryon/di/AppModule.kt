@@ -8,6 +8,9 @@ import com.fyp.virtualtryon.data.dao.GarmentDao
 import com.fyp.virtualtryon.data.dao.UserProfileDao
 import com.fyp.virtualtryon.data.db.AppDatabase
 import com.fyp.virtualtryon.data.db.DatabaseSeeder
+import com.fyp.virtualtryon.data.model.Garment
+import com.fyp.virtualtryon.data.model.GarmentGender
+import com.fyp.virtualtryon.data.model.GarmentType
 import com.fyp.virtualtryon.data.repository.GarmentRepository
 import com.fyp.virtualtryon.data.repository.UserProfileRepository
 import dagger.Module
@@ -36,6 +39,7 @@ object AppModule {
                         val garments = DatabaseSeeder.loadGarments(context)
                         dao.insertGarments(*garments.toTypedArray())
                     }
+                    scanShoes3dFolder(context, dao)
                 }
             }
         }
@@ -61,3 +65,32 @@ object AppModule {
     fun provideUserProfileRepository(dao: UserProfileDao): UserProfileRepository =
         UserProfileRepository(dao)
 }
+
+/**
+ * Scans assets/shoes_3d/ for PNG thumbnails and inserts any that are not yet in the DB.
+ * Drop a PNG + matching GLB (same base name) into shoes_3d/ to have it appear automatically.
+ */
+private suspend fun scanShoes3dFolder(context: Context, dao: GarmentDao) {
+    val files = try { context.assets.list("shoes_3d") ?: return } catch (e: Exception) { return }
+    for (file in files) {
+        if (!file.endsWith(".png", ignoreCase = true)) continue
+        val assetPath = "shoes_3d/$file"
+        if (dao.countByImagePath(assetPath) > 0) continue
+        val displayName = file.removeSuffix(".png")
+            .replace('_', ' ').trim().replaceFirstChar { it.uppercase() }
+        dao.insertGarments(makeShoesEntry(displayName, assetPath))
+    }
+}
+
+private fun makeShoesEntry(name: String, imageAssetPath: String) = Garment(
+    name              = name,
+    type              = GarmentType.SHOES,
+    gender            = GarmentGender.UNISEX,
+    color             = "custom",
+    imageAssetPath    = imageAssetPath,
+    widthCm           = 28f,
+    heightCm          = 12f,
+    sizeLabel         = "ONE SIZE",
+    suitableBodyTypes = "SLIM,REGULAR,LARGE",
+    suitableGenders   = "MALE,FEMALE,UNISEX",
+)

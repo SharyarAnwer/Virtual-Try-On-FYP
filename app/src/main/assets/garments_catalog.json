@@ -3,49 +3,49 @@
     "name": "Shirt 001",
     "type": "SHIRT",
     "gender": "UNISEX",
-    "color": "grey",
+    "color": "red",
     "imageAssetPath": "garments/shirts/shirt_000.png",
     "widthCm": 42.0,
     "heightCm": 65.0,
     "sizeLabel": "XS",
     "suitableBodyTypes": "SLIM,REGULAR",
-    "suitableGenders": "MALE,FEMALE,UNISEX"
+    "suitableGenders": "FEMALE"
   },
   {
     "name": "Shirt 002",
     "type": "SHIRT",
     "gender": "UNISEX",
-    "color": "orange",
+    "color": "red",
     "imageAssetPath": "garments/shirts/shirt_001.png",
     "widthCm": 46.0,
     "heightCm": 68.0,
     "sizeLabel": "S",
     "suitableBodyTypes": "REGULAR,LARGE",
-    "suitableGenders": "MALE,FEMALE,UNISEX"
+    "suitableGenders": "FEMALE"
   },
   {
     "name": "Shirt 003",
     "type": "SHIRT",
     "gender": "UNISEX",
-    "color": "yellow",
+    "color": "blue",
     "imageAssetPath": "garments/shirts/shirt_002.png",
     "widthCm": 50.0,
     "heightCm": 71.0,
     "sizeLabel": "M",
     "suitableBodyTypes": "SLIM,REGULAR,LARGE",
-    "suitableGenders": "MALE,FEMALE,UNISEX"
+    "suitableGenders": "FEMALE"
   },
   {
     "name": "Shirt 004",
     "type": "SHIRT",
     "gender": "UNISEX",
-    "color": "navy",
+    "color": "blue",
     "imageAssetPath": "garments/shirts/shirt_003.png",
     "widthCm": 54.0,
     "heightCm": 74.0,
     "sizeLabel": "L",
     "suitableBodyTypes": "SLIM,REGULAR",
-    "suitableGenders": "MALE,FEMALE,UNISEX"
+    "suitableGenders": "FEMALE"
   },
   {
     "name": "Shirt 005",
@@ -57,31 +57,31 @@
     "heightCm": 77.0,
     "sizeLabel": "XL",
     "suitableBodyTypes": "REGULAR,LARGE",
-    "suitableGenders": "MALE,FEMALE,UNISEX"
+    "suitableGenders": "FEMALE"
   },
   {
     "name": "Shirt 006",
     "type": "SHIRT",
     "gender": "UNISEX",
-    "color": "brown",
+    "color": "blue",
     "imageAssetPath": "garments/shirts/shirt_005.png",
     "widthCm": 42.0,
     "heightCm": 65.0,
     "sizeLabel": "XS",
     "suitableBodyTypes": "SLIM,REGULAR,LARGE",
-    "suitableGenders": "MALE,FEMALE,UNISEX"
+    "suitableGenders": "FEMALE"
   },
   {
     "name": "Shirt 007",
     "type": "SHIRT",
     "gender": "UNISEX",
-    "color": "orange",
+    "color": "black",
     "imageAssetPath": "garments/shirts/shirt_006.png",
     "widthCm": 46.0,
     "heightCm": 68.0,
     "sizeLabel": "S",
     "suitableBodyTypes": "SLIM,REGULAR",
-    "suitableGenders": "MALE,FEMALE,UNISEX"
+    "suitableGenders": "FEMALE"
   },
   {
     "name": "Shirt 008",
@@ -93,55 +93,150 @@
     "heightCm": 71.0,
     "sizeLabel": "M",
     "suitableBodyTypes": "REGULAR,LARGE",
-    "suitableGenders": "MALE,FEMALE,UNISEX"
+    "suitableGenders": "FEMALE"
   },
   {
     "name": "Shirt 009",
     "type": "SHIRT",
     "gender": "UNISEX",
-    "color": "black",
+    "color": "white",
     "imageAssetPath": "garments/shirts/shirt_008.png",
     "widthCm": 54.0,
     "heightCm": 74.0,
     "sizeLabel": "L",
     "suitableBodyTypes": "SLIM,REGULAR,LARGE",
-    "suitableGenders": "MALE,FEMALE,UNISEX"
+    "suitableGenders": "FEMALE"
   },
   {
     "name": "Shirt 010",
     "type": "SHIRT",
     "gender": "UNISEX",
-    "color": "blue",
+    "color": "brown",
     "imageAssetPath": "garments/shirts/shirt_009.png",
     "widthCm": 58.0,
     "heightCm": 77.0,
     "sizeLabel": "XL",
     "suitableBodyTypes": "SLIM,REGULAR",
-    "suitableGenders": "MALE,FEMALE,UNISEX"
+    "suitableGenders": "FEMALE"
   },
   {
     "name": "Shirt 011",
     "type": "SHIRT",
     "gender": "UNISEX",
-    "color": "navy",
+    "color": "black",
     "imageAssetPath": "garments/shirts/shirt_010.png",
     "widthCm": 42.0,
     "heightCm": 65.0,
     "sizeLabel": "XS",
     "suitableBodyTypes": "REGULAR,LARGE",
-    "suitableGenders": "MALE,FEMALE,UNISEX"
+    "suitableGenders": "FEMALE"
   },
   {
     "name": "Shirt 012",
     "type": "SHIRT",
     "gender": "UNISEX",
-    "color": "brown",
+    "color": "orange",
     "imageAssetPath": "garments/shirts/shirt_011.png",
     "widthCm": 46.0,
     "heightCm": 68.0,
     "sizeLabel": "S",
     "suitableBodyTypes": "SLIM,REGULAR,LARGE",
-    "suitableGenders": "MALE,FEMALE,UNISEX"
+    "suitableGenders": "FEMALE"
+  },
+  {
+    "name": "Men's Shirt 013",
+    "type": "SHIRT",
+    "gender": "MALE",
+    "color": "yellow",
+    "imageAssetPath": "garments/shirts/shirt_012.jpg",
+    "widthCm": 50.0,
+    "heightCm": 71.0,
+    "sizeLabel": "M",
+    "suitableBodyTypes": "SLIM,REGULAR,LARGE",
+    "suitableGenders": "MALE"
+  },
+  {
+    "name": "Men's Shirt 014",
+    "type": "SHIRT",
+    "gender": "MALE",
+    "color": "green",
+    "imageAssetPath": "garments/shirts/shirt_013.webp",
+    "widthCm": 54.0,
+    "heightCm": 74.0,
+    "sizeLabel": "L",
+    "suitableBodyTypes": "SLIM,REGULAR,LARGE",
+    "suitableGenders": "MALE"
+  },
+  {
+    "name": "Men's Shirt 015",
+    "type": "SHIRT",
+    "gender": "MALE",
+    "color": "blue",
+    "imageAssetPath": "garments/shirts/shirt_014.jpg",
+    "widthCm": 46.0,
+    "heightCm": 68.0,
+    "sizeLabel": "S",
+    "suitableBodyTypes": "SLIM,REGULAR",
+    "suitableGenders": "MALE"
+  },
+  {
+    "name": "Men's Shirt 016",
+    "type": "SHIRT",
+    "gender": "MALE",
+    "color": "brown",
+    "imageAssetPath": "garments/shirts/shirt_015.jpg",
+    "widthCm": 58.0,
+    "heightCm": 77.0,
+    "sizeLabel": "XL",
+    "suitableBodyTypes": "REGULAR,LARGE",
+    "suitableGenders": "MALE"
+  },
+  {
+    "name": "Men's Shirt 017",
+    "type": "SHIRT",
+    "gender": "MALE",
+    "color": "grey",
+    "imageAssetPath": "garments/shirts/shirt_016.jpg",
+    "widthCm": 42.0,
+    "heightCm": 65.0,
+    "sizeLabel": "XS",
+    "suitableBodyTypes": "SLIM,REGULAR"
+  },
+  {
+    "name": "Men's Shirt 018",
+    "type": "SHIRT",
+    "gender": "MALE",
+    "color": "blue",
+    "imageAssetPath": "garments/shirts/shirt_017.jpg",
+    "widthCm": 50.0,
+    "heightCm": 71.0,
+    "sizeLabel": "M",
+    "suitableBodyTypes": "SLIM,REGULAR,LARGE",
+    "suitableGenders": "MALE"
+  },
+  {
+    "name": "Men's Shirt 019",
+    "type": "SHIRT",
+    "gender": "MALE",
+    "color": "brown",
+    "imageAssetPath": "garments/shirts/shirt_018.jpg",
+    "widthCm": 54.0,
+    "heightCm": 74.0,
+    "sizeLabel": "L",
+    "suitableBodyTypes": "REGULAR,LARGE",
+    "suitableGenders": "MALE"
+  },
+  {
+    "name": "Men's Shirt 020",
+    "type": "SHIRT",
+    "gender": "MALE",
+    "color": "brown",
+    "imageAssetPath": "garments/shirts/shirt_019.webp",
+    "widthCm": 46.0,
+    "heightCm": 68.0,
+    "sizeLabel": "S",
+    "suitableBodyTypes": "SLIM,REGULAR",
+    "suitableGenders": "MALE"
   },
   {
     "name": "Black Sunglasses",

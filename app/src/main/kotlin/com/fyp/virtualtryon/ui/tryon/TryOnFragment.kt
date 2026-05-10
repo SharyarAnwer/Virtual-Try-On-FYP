@@ -23,6 +23,7 @@ import com.fyp.virtualtryon.garment.GarmentOverlay
 import com.fyp.virtualtryon.pose.FaceDetector
 import com.fyp.virtualtryon.pose.PoseDetector
 import com.fyp.virtualtryon.warning.FitWarning
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -97,13 +98,12 @@ class TryOnFragment : Fragment() {
     }
 
     private fun setupCategoryChips() {
-        // binding.chipShirts.setOnClickListener { viewModel.setCategory(GarmentType.SHIRT) }
-        // binding.chipPants.setOnClickListener { viewModel.setCategory(GarmentType.PANTS) }
-        // binding.chipGlasses.setOnClickListener { viewModel.setCategory(GarmentType.GLASSES) }
-        // binding.chipShoes.setOnClickListener { viewModel.setCategory(GarmentType.SHOES) }
-
         binding.chipGlassesV2.setOnClickListener {
             viewModel.setCategory(GarmentType.GLASSES_V2)
+        }
+
+        binding.chipShoes.setOnClickListener {
+            findNavController().navigate(R.id.action_tryon_to_shoes)
         }
     }
 

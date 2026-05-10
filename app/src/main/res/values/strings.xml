@@ -22,6 +22,25 @@
 
     <!-- Recommendations -->
     <string name="no_recommendations">Complete your profile to get personalised recommendations.</string>
+    <string name="rec_title">Find Your Fit</string>
+    <string name="rec_gender_label">Gender</string>
+    <string name="rec_male">Male</string>
+    <string name="rec_female">Female</string>
+    <string name="rec_height_hint">Height (cm)</string>
+    <string name="rec_body_type_label">Body Type</string>
+    <string name="rec_colors_label">Color Preferences</string>
+    <string name="rec_generate_btn">Generate Recommendations</string>
+    <string name="rec_results_title">Recommended for You</string>
+    <string name="color_black">Black</string>
+    <string name="color_white">White</string>
+    <string name="color_grey">Grey</string>
+    <string name="color_navy">Navy</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_brown">Brown</string>
+    <string name="color_orange">Orange</string>
+    <string name="color_yellow">Yellow</string>
+    <string name="color_red">Red</string>
+    <string name="color_green">Green</string>
 
     <!-- Profile -->
     <string name="profile_name_hint">Your name</string>

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.fyp.virtualtryon.data.model.Garment
 import com.fyp.virtualtryon.databinding.ItemGarmentBinding
 
@@ -20,6 +21,11 @@ class GarmentAdapter(
             binding.tvGarmentSize.text = garment.sizeLabel
             binding.tvGarmentType.text = garment.type.name.lowercase().replaceFirstChar { it.uppercase() }
             binding.root.setOnClickListener { onItemClick?.invoke(garment) }
+
+            Glide.with(binding.ivGarment.context)
+                .load("file:///android_asset/${garment.imageAssetPath}")
+                .centerCrop()
+                .into(binding.ivGarment)
         }
     }
 

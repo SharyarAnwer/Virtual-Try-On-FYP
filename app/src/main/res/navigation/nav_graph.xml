@@ -22,12 +22,30 @@
     <fragment
         android:id="@+id/tryOnFragment"
         android:name="com.fyp.virtualtryon.ui.tryon.TryOnFragment"
-        android:label="Try On" />
+        android:label="Try On">
+        <action
+            android:id="@+id/action_tryon_to_shoes"
+            app:destination="@id/shoesTryOnFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/shoesTryOnFragment"
+        android:name="com.fyp.virtualtryon.shoes.ShoesTryOnFragment"
+        android:label="Shoes Try On" />
 
     <fragment
         android:id="@+id/recommendationFragment"
         android:name="com.fyp.virtualtryon.ui.recommendation.RecommendationFragment"
-        android:label="Recommendations" />
+        android:label="Recommendations">
+        <action
+            android:id="@+id/action_recommendation_to_results"
+            app:destination="@id/recommendationResultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recommendationResultFragment"
+        android:name="com.fyp.virtualtryon.ui.recommendation.RecommendationResultFragment"
+        android:label="Recommended for You" />
 
     <fragment
         android:id="@+id/profileFragment"

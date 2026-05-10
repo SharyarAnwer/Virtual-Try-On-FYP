@@ -23,6 +23,15 @@ interface GarmentDao {
     @Query("SELECT COUNT(*) FROM garments")
     suspend fun count(): Int
 
+    @Query("SELECT COUNT(*) FROM garments WHERE type = :type")
+    suspend fun countByType(type: GarmentType): Int
+
+    @Query("SELECT COUNT(*) FROM garments WHERE imageAssetPath = :path")
+    suspend fun countByImagePath(path: String): Int
+
+    @Query("SELECT COUNT(*) FROM garments WHERE name = :name")
+    suspend fun countByName(name: String): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGarments(vararg garments: Garment)
 

@@ -17,7 +17,7 @@ coroutines = "1.9.0"
 cameraX = "1.4.1"
 mediapipe = "0.10.20"
 tflite = "2.16.1"
-arcore = "1.47.0"
+sceneview = "2.2.0"
 opencv = "4.10.0"
 glide = "4.16.0"
 activity = "1.9.3"
@@ -69,8 +69,8 @@ tflite = { group = "org.tensorflow", name = "tensorflow-lite", version.ref = "tf
 tflite-support = { group = "org.tensorflow", name = "tensorflow-lite-support", version.ref = "tflite" }
 tflite-gpu = { group = "org.tensorflow", name = "tensorflow-lite-gpu", version.ref = "tflite" }
 
-# ARCore
-arcore = { group = "com.google.ar", name = "core", version.ref = "arcore" }
+# SceneView — pure Filament 3D renderer (shoes try-on)
+sceneview = { group = "io.github.sceneview", name = "sceneview", version.ref = "sceneview" }
 
 # OpenCV (image processing / garment warping)
 opencv = { group = "org.opencv", name = "opencv", version.ref = "opencv" }

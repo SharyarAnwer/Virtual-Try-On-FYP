@@ -87,8 +87,8 @@ dependencies {
     // MediaPipe Tasks Vision (pose landmarker)
     implementation(libs.mediapipe.tasks.vision)
 
-    // ARCore
-    implementation(libs.arcore)
+    // SceneView — Filament-based 3D renderer (shoes try-on)
+    implementation(libs.sceneview)
 
     // OpenCV (garment warping / image processing)
     implementation(libs.opencv)
